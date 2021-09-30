@@ -29,8 +29,7 @@ create table pet(
 
 desc pet;
 
-[테이블만들기연습](C:\Users\user\Desktop\캡쳐파일\테이블만들기연습.PNG)
-
+![테이블만들기연습](https://user-images.githubusercontent.com/90162940/135438305-7481cf60-0d1b-4123-812a-a0238e99e69e.PNG)
 
 
 #### -- 테이터 넣기 insert , (넣을값)value ('성탄이', '안대혁', 'dog', 'm', '2018-12-28', null);
@@ -43,7 +42,8 @@ insert
 	value ('성탄이', '안대혁', 'dog', 'm', '2018-12-28', null);
 ```
 
-![value값 추가](C:\Users\user\Desktop\캡쳐파일\value값 추가.PNG)
+![value값 추가](https://user-images.githubusercontent.com/90162940/135438437-892f4ad1-9732-4f97-b8e2-4268b6d5a61a.PNG)
+
 
 #### -- 데이터 삭제(delete)
 
@@ -55,7 +55,7 @@ delete
 
 > pet 테이블의 성탄이열이 사라짐
 
-![성탄이삭제](C:\Users\user\Desktop\캡쳐파일\성탄이삭제.PNG)
+![성탄이삭제](https://user-images.githubusercontent.com/90162940/135438458-f8b8d4ad-779f-4efe-a1bc-8c937770c34a.PNG)
 
 #### -- 조회(검색,select), 프로젝션 원하는 칼럼을 select해서 조회하는것
 
@@ -73,7 +73,8 @@ load data local infile 'c:\\pet.txt' into table pet;
 >
 > OPT_LOCAL_INFILE=1
 
-![로컬파일로드시에러해결](C:\Users\user\Desktop\캡쳐파일\로컬파일로드시에러해결.PNG)
+![로컬파일로드시에러해결](https://user-images.githubusercontent.com/90162940/135438514-edb36d9e-375e-4d0e-a1c3-fe892f5cc63b.PNG)
+
 
 #### -- update death
 
@@ -85,7 +86,8 @@ update pet
 
 > 이름이 Bower가 아닌 열의 death를 null로 만듬
 
-![로컬에있는파일불러온후 null값 지정](C:\Users\user\Desktop\캡쳐파일\로컬에있는파일불러온후 null값 지정.PNG)
+![로컬에있는파일불러온후 null값 지정](https://user-images.githubusercontent.com/90162940/135438536-f9c39d42-ae1d-4bfc-8827-78b268066603.PNG)
+
 
 #### -- 조회연습1:where
 
@@ -98,7 +100,8 @@ select name, species, birth
 
 > pet 에서 1991년 이후에 태어난 아이들을 찾는다
 
-![where연습1](C:\Users\user\Desktop\캡쳐파일\where연습1.PNG)
+
+![where연습1](https://user-images.githubusercontent.com/90162940/135438573-7a8fa572-c212-4031-aafb-2a1d77071f65.PNG)
 
 #### -- Gwem과 함께 사는 아이는?
 
