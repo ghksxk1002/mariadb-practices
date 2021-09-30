@@ -29,7 +29,7 @@ create table pet(
 
 desc pet;
 
-![테이블만들기연습](C:\Users\user\Desktop\캡쳐파일\테이블만들기연습.PNG)
+[테이블만들기연습](C:\Users\user\Desktop\캡쳐파일\테이블만들기연습.PNG)
 
 
 
