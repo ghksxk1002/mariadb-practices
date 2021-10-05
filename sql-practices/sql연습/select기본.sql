@@ -15,7 +15,7 @@ select concat(first_name, ' ', last_name) as '전체 이름',
   from employees;
   
 -- dostinct : 
--- 예제 : title 테이블에서 모든 직습의 이름을 출력
+-- 예제 : title 테이블에서 모든 직급의 이름을 출력
 select distinct title from titles;
 select title from titles limit 3, 3;
 
@@ -62,4 +62,19 @@ select first_name, hire_date
  where hire_date between '1989-01-01' and '1989-12-31'
 order by hire_date asc;
 
+-- order by : 출력전에 정렬 #1
+-- 예제 : 남자 직원의 전체 이름, 성별, 입사일을 입사일 순(선임순으로)으로 출력하라
+select first_name as '이름', gender as '성별', hire_date as '입사일'
+  from employees
+ where gender = 'm'
+order by hire_date asc;
+
+-- 예제2 : 직원들의 사번과 월급을 사번, 월급 순으로 출력하라
+select emp_no, salary, from_date, to_date
+  from salaries
+order by emp_no asc, salary desc;
+
+
+
+  
 
