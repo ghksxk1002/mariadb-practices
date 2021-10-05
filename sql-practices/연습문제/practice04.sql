@@ -2,10 +2,70 @@
 
 -- 문제1.
 -- 현재 평균 연봉보다 많은 월급을 받는 직원은 몇 명이나 있습니까?
-
+select avg(salary)
+  from salaries;
+  
+select count(*)
+  from salaries
+ where salary >= (select avg(salary) 
+						from salaries 
+						where to_date = '9999-01-01');
+                        
 -- 문제2. 
 -- 현재, 각 부서별로 최고의 급여를 받는 사원의 사번, 이름, 부서 연봉을 조회하세요. 단 조회결과는 연봉의 내림차순으로 정렬되어 나타나야 합니다. 
+select b.emp_no, avg(b.salary), max(b.salary)
+ from dept_emp a, salaries b
+where a.emp_no = b.emp_no
+  and a.to_date = '9999-01-01'
+  and b.to_date = '9999-01-01'
+group by a.dept_no
+  having max(b.salary);
 
+-- 문제2. 
+-- 현재, 각 부서별로 최고의 급여를 받는 사원의 사번, 이름, 부서 연봉을 조회하세요. 단 조회결과는 연봉의 내림차순으로 정렬되어 나타나야 합니다.
+-- select a.emp_no as '사번', concat(a.first_name,' ',a.last_name) as '이름', c.salavg as '부서 연봉'
+select *
+  from employees a, (select b.emp_no as emp, avg(b.salary) as salavg
+					   from dept_emp a, salaries b
+					  where a.emp_no = b.emp_no
+						and a.to_date = '9999-01-01'
+						and b.to_date = '9999-01-01'
+				   group by a.dept_no
+					 having max(b.salary)) c
+where a.emp_no = c.emp
+order by  c.salavg desc;
+
+
+SELECT 
+    a.emp_no,
+    CONCAT(a.first_name, ' ', a.last_name),
+    d.dept_name,
+    b.salary
+FROM
+    employees a,
+    salaries b,
+    dept_emp c,
+    departments d,
+    (SELECT 
+        c.dept_no, max(b.salary) AS max_salary
+    FROM
+        employees a, salaries b, dept_emp c
+    WHERE
+        a.emp_no = b.emp_no
+            AND a.emp_no = c.emp_no
+            AND b.to_date = '9999-01-01'
+            AND c.to_date = '9999-01-01'
+    GROUP BY c.dept_no) e
+WHERE
+    a.emp_no = b.emp_no
+        AND a.emp_no = c.emp_no
+        AND c.dept_no = e.dept_no
+        AND b.salary = e.max_salary
+        AND e.dept_no = d.dept_no
+        AND b.to_date = '9999-01-01'
+        AND c.to_date = '9999-01-01'
+ORDER BY b.salary DESC;
+  
 -- 문제3.
 -- 현재, 자신의 부서 평균 급여보다 연봉(salary)이 많은 사원의 사번, 이름과 연봉을 조회하세요 
 
