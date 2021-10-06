@@ -80,7 +80,7 @@ public class BookDao {
 			
 			//3. SQL 준비
 			String sql = 
-					"   select a.no, a.title, a.status, b.name as authorName" +
+					"   select a.no, a.title, a.status, b.name as authorname" +
 					"     from book a, author b" +
 					"    where a.author_no = b.no" +
 					" order by no desc";
@@ -92,7 +92,21 @@ public class BookDao {
 			//5. SQL 실행
 			rs = pstmt.executeQuery();
 			
-			
+			while(rs.next()) {
+				Long no = rs.getLong(1);
+				String title = rs.getString(2);
+				String status = rs.getString(3);
+				String authorName = rs.getString(4);
+				
+				BookVo vo = new BookVo();
+				
+				vo.setNo(no);
+				vo.setTitle(title);
+				vo.setStatus(status);
+				vo.setAuthorName(authorName);
+				
+				result.add(vo);
+			}
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -115,7 +129,7 @@ public class BookDao {
 		
 	}
 
-	public boolean update(Long no, String string) {
+	public boolean update(Long no, String status) {
 		boolean result = false;
 		
 		Connection conn = null;
@@ -125,13 +139,14 @@ public class BookDao {
 			conn = getConnection();
 			
 			//3. SQL 준비
-			String sql = "update book\r\n"+ 
-						 "   set status =?\r\n"+ 
-						 " where no=?;\r\n";
+			String sql = "update book"+ 
+						 "   set status =?"+ 
+						 " where no=?";
 			pstmt = conn.prepareStatement(sql);
 			
 			// 4. 바인딩
-			pstmt.setString(0, sql);
+			pstmt.setString(1, status);
+			pstmt.setLong(2, no);
 			//5. SQL 실행
 			int count = pstmt.executeUpdate();
 			
