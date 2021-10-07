@@ -75,19 +75,19 @@ public class BookDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		try {
 			conn = getConnection();
 			
 			//3. SQL 준비
 			String sql = 
-					"   select a.no, a.title, a.status, b.name as authorname" +
-					"     from book a, author b" +
-					"    where a.author_no = b.no" +
-					" order by no desc";
+				"   select a.no, a.title, a.status, b.name as authorName" +
+				"     from book a, author b" +
+				"    where a.author_no = b.no" +
+				" order by no desc";
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. 바인딩(binding)
-		
 			
 			//5. SQL 실행
 			rs = pstmt.executeQuery();
@@ -99,7 +99,6 @@ public class BookDao {
 				String authorName = rs.getString(4);
 				
 				BookVo vo = new BookVo();
-				
 				vo.setNo(no);
 				vo.setTitle(title);
 				vo.setStatus(status);
@@ -107,6 +106,7 @@ public class BookDao {
 				
 				result.add(vo);
 			}
+
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -125,8 +125,8 @@ public class BookDao {
 				e.printStackTrace();
 			}
 		}
-		return result;
 		
+		return result;
 	}
 
 	public boolean update(Long no, String status) {
@@ -139,14 +139,16 @@ public class BookDao {
 			conn = getConnection();
 			
 			//3. SQL 준비
-			String sql = "update book"+ 
-						 "   set status =?"+ 
-						 " where no=?";
+			String sql = 
+				"update book" +
+				"   set status=?" +
+				" where no=?";
 			pstmt = conn.prepareStatement(sql);
 			
-			// 4. 바인딩
+			//4. 바인딩(binding)
 			pstmt.setString(1, status);
 			pstmt.setLong(2, no);
+			
 			//5. SQL 실행
 			int count = pstmt.executeUpdate();
 			
@@ -167,8 +169,7 @@ public class BookDao {
 			}
 		}
 		
-		return result;
-		
+		return result;		
 	}
 
 }
