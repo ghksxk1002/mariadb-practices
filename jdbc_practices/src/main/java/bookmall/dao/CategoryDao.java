@@ -20,7 +20,7 @@ public class CategoryDao {
 			conn = getConnection();
 			
 			//3. SQL 준비
-			String sql = "insert into book values(null, ?)";
+			String sql = "insert into category values(null, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. 바인딩(binding)
@@ -76,7 +76,7 @@ public class CategoryDao {
 			//3. SQL 준비
 			String sql = 
 					" select no, name"+
-					"   from categroy";
+					"   from category";
 			pstmt = conn.prepareStatement(sql);
 
 			//5. SQL 실행
@@ -126,7 +126,7 @@ public class CategoryDao {
 			conn = getConnection();
 			
 			//3. SQL 준비
-			String sql = " update categroy"+
+			String sql = " update category"+
 						 "	  set name =?"+
 						 "  where no =?";
 			pstmt = conn.prepareStatement(sql);

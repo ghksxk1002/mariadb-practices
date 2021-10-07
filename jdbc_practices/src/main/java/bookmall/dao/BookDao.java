@@ -79,11 +79,9 @@ public class BookDao {
 			
 			//3. SQL 준비
 			String sql = 
-					" select no,"+
-					"        title,"+
-				    "		 price,"+
-					"           no"+
-					"   from book";
+					" select b.no, b.title, b.price, a.name"+
+					"   from category a, book b"+ 
+					"  where a.no = b.categroy_no";
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. 바인딩(binding)

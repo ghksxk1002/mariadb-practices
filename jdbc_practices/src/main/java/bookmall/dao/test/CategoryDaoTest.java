@@ -9,7 +9,7 @@ public class CategoryDaoTest {
 
 	public static void main(String[] args) {
 		insertTest();
-		//findAllTest();
+		findAllTest();
 	}
 
 	private static void findAllTest() {
@@ -24,14 +24,12 @@ public class CategoryDaoTest {
 		CategoryDao dao = new CategoryDao();
 
 		vo = new CategoryVo();
-		vo.setNo(1);
-		vo.setName("수필");
+		vo.setName("역사");
 		dao.insert(vo);
 		
-		vo = new CategoryVo();
-		vo.setNo(2);
-		vo.setName("소설");
-		dao.insert(vo);
+//		vo = new CategoryVo();
+//		vo.setName("소설");
+//		dao.insert(vo);
 
 		
 
