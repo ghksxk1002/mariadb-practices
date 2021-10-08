@@ -2,7 +2,7 @@ package bookmall.vo;
 
 public class OrderVo {
 	private int no;
-	private Long orderNo;
+	private String orderNo;
 	private int price;
 	private String dirlok;
 	private Long mamber_no;
@@ -12,10 +12,10 @@ public class OrderVo {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public Long getOrderNo() {
+	public String getOrderNo() {
 		return orderNo;
 	}
-	public void setOrderNo(Long orderNo) {
+	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
 	public int getPrice() {
