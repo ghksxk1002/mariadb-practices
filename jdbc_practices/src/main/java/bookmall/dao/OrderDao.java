@@ -10,31 +10,125 @@ import java.util.List;
 
 import bookmall.vo.OrderVo;
 
-
 public class OrderDao {
 	public boolean insert(OrderVo vo) {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-
 		try {
 			conn = getConnection();
 
-			// 3. SQL 준비
-			String sql = "insert into order values(null, ?, ?, ?, ?)";
+			// 3. SQL문 준비
+			String sql = "insert into orders values (null, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 
 			// 4. 바인딩(binding)
-			pstmt.setString(1, vo.getOrderNo());
-			pstmt.setInt(2, vo.getPrice());
+			pstmt.setLong(1, vo.getOrderNo());
+			pstmt.setLong(2, vo.getPrice());
 			pstmt.setString(3, vo.getDirlok());
 			pstmt.setLong(4, vo.getMamber_no());
-			// 5. SQL 실행
-			int count = pstmt.executeUpdate();
 
+			// 5. SQL 실행(하기전에 워크벤치에서 연습)
+			int count = pstmt.executeUpdate();
 			result = count == 1;
 		} catch (SQLException e) {
-			System.out.println("error:" + e);
+			System.out.println("error : " + e);
+		} finally {
+			// clean up
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+
+	}
+
+	public List<OrderVo> findAll() {
+		List<OrderVo> result = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+
+			// 3. SQL문 준비
+			String sql = "select * from orders";
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩(binding)
+
+			// 5. SQL 실행(하기전에 워크벤치에서 연습)
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Long no = rs.getLong(1);
+				Long orderNo = rs.getLong(2);
+				Long price = rs.getLong(3);
+				String dirlok = rs.getString(4);
+				Long memberNo = rs.getLong(5);
+
+				OrderVo vo = new OrderVo();
+				vo.setNo(no);
+				vo.setOrderNo(orderNo);
+				vo.setPrice(price);
+				vo.setDirlok(dirlok);
+				vo.setMamber_no(memberNo);
+
+				result.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error : " + e);
+		} finally {
+			// clean up
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	}
+
+	public boolean update(Long memberNo, Long orderNumber, String shippingAddress) {
+		boolean result = false;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+
+			// 3. SQL문 준비
+			String sql = "update orders set shipping_address = ? where member_no = ? and order_number = ?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			// 4. 바인딩(binding)
+			pstmt.setString(1, shippingAddress);
+			pstmt.setLong(2, memberNo);
+			pstmt.setLong(3, orderNumber);
+
+			// 5. SQL 실행(하기전에 워크벤치에서 연습)
+			int count = pstmt.executeUpdate();
+			result = count == 1;
+		} catch (SQLException e) {
+			System.out.println("error : " + e);
 		} finally {
 			// clean up
 			try {
@@ -62,104 +156,8 @@ public class OrderDao {
 			String url = "jdbc:mysql://127.0.0.1:3306/bookmall?charset=utf8";
 			conn = DriverManager.getConnection(url, "bookmall", "bookmall");
 		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패:" + e);
+			System.out.println("드라이버 로딩 실패");
 		}
-
 		return conn;
-	}
-
-	public List<OrderVo> findAll() {
-		List<OrderVo> result = new ArrayList<>();
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			conn = getConnection();
-
-			// 3. SQL 준비
-			String sql = " select no, order_no, price, deliver_loction, member_no"+
-					 	 "  from orders";
-			pstmt = conn.prepareStatement(sql);
-
-			// 5. SQL 실행
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				int no = rs.getInt(1);
-				String orderNo = rs.getString(3);
-				int price = rs.getInt(4);
-				String dirlok = rs.getString(5);
-				
-
-				OrderVo vo = new OrderVo();
-
-				vo.setNo(no);
-				vo.setOrderNo(orderNo);
-				vo.setPrice(price);
-				vo.setDirlok(dirlok);
-
-				result.add(vo);
-			}
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			// clean up
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return result;
-
-	}
-
-	public boolean update(int no, String name) {
-		boolean result = false;
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = getConnection();
-
-			// 3. SQL 준비
-			String sql = " update category" + "	  set name =?" + "  where no =?";
-			pstmt = conn.prepareStatement(sql);
-
-			// 4. 바인딩
-			pstmt.setString(1, name);
-			pstmt.setInt(2, no);
-			// 5. SQL 실행
-			int count = pstmt.executeUpdate();
-
-			result = count == 1;
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			// clean up
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-
 	}
 }
