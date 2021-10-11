@@ -5,19 +5,14 @@ import java.util.List;
 import bookmall.dao.OrderDao;
 import bookmall.vo.OrderVo;
 
-
 public class OrderDaoTest {
 
 	public static void main(String[] args) {
-		insertTest();
+		//insertTest();
 		findAllTest();
-	}
-
-	private static void findAllTest() {
-		List<OrderVo> list = new OrderDao().findAll();
-		for (OrderVo vo : list) {
-			System.out.println(vo);
-		}
+//		updateTest();
+//		System.out.println("---------------------------");
+//		findAllTest();
 	}
 
 	private static void insertTest() {
@@ -25,13 +20,19 @@ public class OrderDaoTest {
 		OrderDao dao = new OrderDao();
 
 		vo = new OrderVo();
-		vo.setOrderNo("5558699");
+		vo.setOrderNo(1L);
+		vo.setPrice(30000L);
+		vo.setDirlok("부산시 동래구");
+		vo.setMamber_no(6L);
 		dao.insert(vo);
 
-//		vo = new CategoryVo();
-//		vo.setName("소설");
-//		dao.insert(vo);
+	}
 
+	private static void findAllTest() {
+		List<OrderVo> list = new OrderDao().findAll();
+		for (OrderVo vo : list) {
+			System.out.println(vo);
+		}
 	}
 
 }

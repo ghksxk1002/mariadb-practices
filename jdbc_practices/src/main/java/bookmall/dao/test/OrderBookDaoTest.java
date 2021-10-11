@@ -21,7 +21,7 @@ public class OrderBookDaoTest {
 
 		vo = new OrderVo();
 		vo.setOrderNo(1L);
-		vo.setPrice(330000L);
+		vo.setPrice(30000L);
 		vo.setDirlok("부산시 동래구");
 		vo.setMamber_no(2L);
 		dao.insert(vo);
