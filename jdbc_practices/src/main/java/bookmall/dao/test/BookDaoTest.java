@@ -25,14 +25,14 @@ public class BookDaoTest {
 
 		vo = new BookVo();
 		vo.setTitle("해리포터");
-		vo.setPrice(30000);
-		vo.setCategroyNo(1);
+		vo.setPrice(30000L);
+		vo.setCategroyNo(1L);
 		dao.insert(vo);
 
 		vo = new BookVo();
 		vo.setTitle("내일기");
-		vo.setPrice(60000);
-		vo.setCategroyNo(2);
+		vo.setPrice(60000L);
+		vo.setCategroyNo(2L);
 		dao.insert(vo);
 
 	}

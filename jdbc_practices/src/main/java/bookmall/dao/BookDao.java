@@ -24,9 +24,9 @@ public class BookDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. 바인딩(binding)
-			pstmt.setString(2, vo.getTitle());
-			pstmt.setInt(1, vo.getPrice());
-			pstmt.setInt(3, vo.getCategroyNo());
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setLong(2, vo.getPrice());
+			pstmt.setLong(3, vo.getCategroyNo());
 		
 			
 			//5. SQL 실행
@@ -79,7 +79,7 @@ public class BookDao {
 			
 			//3. SQL 준비
 			String sql = 
-					" select b.no, b.title, b.price, a.name"+
+					" select b.no, b.title, b.price, a.no, a.name"+
 					"   from category a, book b"+ 
 					"  where a.no = b.categroy_no";
 			pstmt = conn.prepareStatement(sql);
@@ -91,17 +91,19 @@ public class BookDao {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				int no = rs.getInt(1);
+				Long no = rs.getLong(1);
 				String title = rs.getString(2);
-				int price = rs.getInt(3);
-				int categroyNo = rs.getInt(4);
+				Long price = rs.getLong(3);
+				Long cateNo = rs.getLong(4);
+				String cateName = rs.getString(5);
 				
 				BookVo vo = new BookVo();
 				
 				vo.setNo(no);
 				vo.setTitle(title);
 				vo.setPrice(price);
-				vo.setCategroyNo(categroyNo);
+				vo.setCategroyNo(cateNo);
+				vo.setCateName(cateName);;
 				
 				result.add(vo);
 			}

@@ -10,9 +10,6 @@ public class OrderDaoTest {
 	public static void main(String[] args) {
 		//insertTest();
 		findAllTest();
-//		updateTest();
-//		System.out.println("---------------------------");
-//		findAllTest();
 	}
 
 	private static void insertTest() {
