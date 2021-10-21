@@ -2,14 +2,14 @@ select *from user;
 desc user;
 insert    into user  values(null, 111,111,111, 'male', now());
 insert into user values(null, '둘리','1234', '1234','male',now());
-delete from user where no=2;
+delete from user where no=5;
 select * from guestbook;
 
 update user
    set name = '이승환', email = 'ghksxk1002@naver.com', password = '1234', gender = 'famale'
  where no = 2;
 
-select * from board;
+select * from guestbook;
 
 -- ifnull(null이 아닌 경우, null인 경우)
 -- ifnull((select max(group_no) from board)+ 1     , 1) 
@@ -21,11 +21,10 @@ insert into board values(null, "여섯번번째 글입니다", "안녕하세요"
 	 from board b, user u
 	where b.user_no = u.no
  order by group_no desc, order_no asc
-	limit 0,10;
+	limit 5,6;
 
 delete from board where no = 4;
-
-
+delete from guestbook;
 select title, contents
  from board
  where no=5;
@@ -39,7 +38,9 @@ update board
    set title = '', centent = ''
  where no = ''
    and user_no = '';
-   
+
+delete from board; 
+
 select group_no, order_no, depth_no
   from board
  where no = 9;   
@@ -50,3 +51,18 @@ update board
 select * from emaillist;
 select * from guestbook;
 
+select * from board;
+
+update board
+   set order_no = order_no+1
+ where group_no = 5
+   and order_no > 0;
+   
+insert into board values(null, "여섯번번째 글입니다", "안녕하세요", default, now(), 5, 1, 1, 1);
+
+
+ select b.no, b.title, u.name, b.contents, b.hit, b.reg_date, u.no, b.group_no, b.order_no, b.depth_no 
+   from board b, user u , (select no,count(no) as "count" from board) c
+  where b.user_no = u.no
+    and b.no = c.no
+order by group_no desc, order_no asc
