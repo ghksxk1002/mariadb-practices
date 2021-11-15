@@ -67,3 +67,23 @@ select p.no, count(*) as cnt
 -- 포스트
 select name from category where blog_id='ghksxk1002';
 select * from post;
+
+select no, title, contents, reg_date
+  from post
+ where category_no=3
+   and reg_date = max(reg_date)
+order by reg_date desc;
+ 
+select title, contents
+  from post as p, category as c
+ where p.category_no = c.no
+   and c.blog_id = "ghksxk1002"
+order by reg_date desc
+limit 0, 1;
+
+select p.no, p.title, p.contents, p.reg_date, p.category_no
+  from category as c, post as p
+ where c.no = p.category_no 
+   and blog_id = 'ghksxk1002'
+   and name = '미분류'
+   order by p.reg_date desc;
