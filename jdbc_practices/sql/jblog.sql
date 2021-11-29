@@ -4,9 +4,12 @@ desc post;
 desc user;
 
 select * from blog;
-select * from category;
+select * from category where blog_id = 'ghksxk1002';
 select * from post;
 select * from user;
+delete from category where no =17 and blog_id='ghksxk1002';
+
+
 
 
 
@@ -87,3 +90,6 @@ select p.no, p.title, p.contents, p.reg_date, p.category_no
    and blog_id = 'ghksxk1002'
    and name = '미분류'
    order by p.reg_date desc;
+   
+   
+delete from post where category_no= 666;

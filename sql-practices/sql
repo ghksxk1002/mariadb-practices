@@ -1,5 +1,5 @@
 select *from user;
-
+delete from guestbook;
 desc user;
 insert    into user  values(null, 111,111,111, 'male', now());
 insert into user values(null, '둘리','1234', '1234','male',now());
@@ -50,7 +50,7 @@ update board
  where no = 9;
  
 select * from emaillist;
-select * from guestbook;
+select * from guestbook order by no desc;
 
 select * from board;
 
@@ -65,7 +65,7 @@ insert into board values(null, "여섯번번째 글입니다", "안녕하세요"
 select count(no)
  from board;
  
-select * from  gallery;
+select * from  user;
 
 alter table user add column role enum('USER', 'ADMIN') not null default 'USER';
 select * from user;
@@ -75,10 +75,24 @@ insert into user values(null, '이주은', '으니', '0613', 'female', now(), 'U
 delete from user where no=2;
 desc site;
 
-insert into site values(null, 'Mysite','반갑습니다','','');
+insert into site values(null, 'Mysite','반갑습니다','/assets/images/둘리.png','이 사이트는 웹 프로그램밍 실습과제 예제 사이트입니다.
+메뉴는 사이트 소개, 방명록, 게시판이 있구요. 데이터베이스 수업 웹프로그래밍 수업 배운 거 있는거 없는 거 다 합쳐서 만들어 놓은 사이트 입니다.');
 
 
 select no, url, comments
   from gallery;
 
 delete from gallery;
+
+select * from board order by no desc;
+update board set hit = hit+1 where no =209;
+select no, title, contents, user_no as userNo, group_no, order_no, depth_no from board where no=227;
+
+select * 
+from board 
+where title 
+like "%1234%";
+desc site;
+
+select count(*) from board;
+select count(*) from board where title like "%#{kwd}%";
